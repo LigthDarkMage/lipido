@@ -1,0 +1,97 @@
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.main-menu {
+    list-style: none;
+}
+
+.main-menu li{
+    display: inline-block;
+    margin-right: 5px;
+    font-weight: 700;
+    color: white; 
+    vertical-align: middle;
+}
+
+.main-menu li:hover {
+    color: wheat;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #7B68EE;
+    padding: 0 60px 0 60px;
+}
+
+.logo h2 {
+    margin: 0;
+    vertical-align: middle;
+    color: white;
+    padding-top: 9px;
+}
+
+main {
+    width: 1300px;
+    display: block;
+    margin: 0;
+    padding-left: 20px;
+    font-size: 16px;
+}
+
+footer {
+    background-color: #2d2d44;
+}
+
+form div {
+    display: block;
+    margin: 7px 3px 7px 3px;
+}
+
+form div:first-child {
+    margin: 3px 3px 7px 3px;
+}
+
+form div:last-child {
+    margin: 7px 3px 0 3px;
+}
+
+th {
+    border: 2px solid black;
+    padding: 2px;
+}
+
+td {
+    border: 2px solid black;
+    padding: 2px;
+}
+
+td input {
+    border: none;
+}
+
+fieldset {
+    border: 2px solid #7B68EE;
+    margin-bottom: 10px;
+}
+
+legend {
+    color: #7B68EE;
+    font-weight: 600;
+}
+
+button {
+    display: block;
+    font-size: 16px;
+    width: 160px;
+    height: 30px;
+    margin: 2px;
+    background-color: #7B68EE;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 3px;
+}
