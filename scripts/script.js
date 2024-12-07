@@ -1,4 +1,4 @@
-//Объявление и внедрение табличных значений SCORE-2OP
+//Табличные значения SCORE-2OP для старшего населения
 var score2op = [
     //sex - пол пациента
     //smoke - Курение пациента
@@ -461,12 +461,36 @@ var score2op = [
     ]
 ]
 
-//Объявление анализатора формы
+//Табличные значения SCORE для молодого населения
+
+var score1 = [
+    [//Не курит
+        //> 180 sap=0
+        [3, 3, 4, 5, 6],
+        //160-180 sap=1
+        [2, 3, 3, 4, 4],
+        //140-160 sap=2
+        [1, 2, 2, 2, 3],
+        //120-140 sap=3
+        [1, 1, 1, 2, 2]
+    ],
+    [//Курит
+        //> 180 sap=0
+        [6, 7, 8, 10, 12],
+        //160-180 sap=1
+        [4, 5, 6, 7, 8],
+        //140-160 sap=2
+        [3, 3, 4, 5, 6],
+        //120-140 sap=3
+        [2, 2, 3, 3, 4]
+    ]
+];
+
 const isCheckboxOrRadio = type => ['checkbox', 'radio'].includes(type);
 
-//Объявление формы
 const form = document.getElementById('form');
 
+//Основное событие
 function retrieveFormValue (event) {
     event.preventDefault();
 //Объявление каждого элемента формы
@@ -489,3130 +513,2120 @@ function retrieveFormValue (event) {
           kidneyDisease = form.querySelector('[name="kidneys-disease"]');
           ateroReveal = form.querySelector('[name="atero-revealed"]');
           ateroSize = form.querySelector('[name="atero-size"]');
+          skf = form.querySelector('[name="skf"]');
+          sdType = form.querySelector('[name="diabetes-type"]');
+          extreme = form.querySelector('[name="extreme"]');
 
-//Формула поиска ХС-неЛВП
+    //Управление DOM-деревом
+    var result = document.createElement('section');
+    var main = document.querySelector("section");
+
+    //Объявление условных переменных для дальнейшего изъятия
+    let resultScore;
+    var goalLipids;
+    var differenceLowLipids;
+    let sex;
+    let smoke;
+    let age;
+    let sap;
+    let chol;
+
+    //Формула поиска ХС-неЛВП      
     var unHDL = tch.value - hdl.value;
 
-//Алгоритм поиска табличных значений SCORE-2OP на основаниях полученных данных формы    
+    //Определение риска по SCORE-2OP    
     if (isfemale.checked == true) {
-        let sex = 0;
+        sex = 0;
         if (issmoke.checked == true) {
-            let smoke = 0;
-            if (systolic.value >= 160) {
-                let sap = 0;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+            smoke = 0;
+            if (isold.value >= 85) {
+                age = 0;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 1;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 2;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 3;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 4;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 5;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 6;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 7;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 8;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 9;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 }
-            } else if (systolic.value >= 140 && systolic.value < 160) {
-                let sap = 1;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+            } else {
+            smoke = 1;
+            if (isold.value >= 85) {
+                age = 0;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 1;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 2;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 3;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 4;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 5;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 6;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 7;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 8;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 120 && systolic.value < 140) {
-                let sap = 2;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 0 && systolic.value < 120) {
-                let sap = 3;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 9;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 }
             }
         } else {
-            let smoke = 1;
-            if (systolic.value >= 160) {
-                let sap = 0;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 140 && systolic.value < 160) {
-                let sap = 1;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 120 && systolic.value < 140) {
-                let sap = 2;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 0 && systolic.value < 120) {
-                let sap = 3;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            }
-        }
-    } else {
-        let sex = 1;
+        sex = 1;
         if (issmoke.checked == true) {
-            let smoke = 0;
-            if (systolic.value >= 160) {
-                let sap = 0;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+            smoke = 0;
+            if (isold.value >= 85) {
+                age = 0;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 1;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 2;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 3;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 4;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 5;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 6;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 7;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 8;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 9;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 }
-            } else if (systolic.value >= 140 && systolic.value < 160) {
-                let sap = 1;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+            } else {
+            smoke = 1;
+            if (isold.value >= 85) {
+                age = 0;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 1;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 2;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 3;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 4;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 5;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 6;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 7;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 8;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 120 && systolic.value < 140) {
-                let sap = 2;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 0 && systolic.value < 120) {
-                let sap = 3;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            }
-        } else {
-            let smoke = 1;
-            if (systolic.value >= 160) {
-                let sap = 0;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 140 && systolic.value < 160) {
-                let sap = 1;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 120 && systolic.value < 140) {
-                let sap = 2;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                }
-            } else if (systolic.value >= 0 && systolic.value < 120) {
-                let sap = 3;
-                if (isold.value >= 85) {
-                    let age = 0;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 80 && isold.value < 85) {
-                    let age = 1;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 75 && isold.value < 80) {
-                    let age = 2;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 70 && isold.value < 75) {
-                    let age = 3;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 65 && isold.value < 70) {
-                    let age = 4;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 60 && isold.value < 65) {
-                    let age = 5;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 55 && isold.value < 60) {
-                    let age = 6;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 50 && isold.value < 55) {
-                    let age = 7;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >= 45 && isold.value < 50) {
-                    let age = 8;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    }
-                } else if (isold.value >=40 && isold.value < 45) {
-                    let age = 9;
-                    if (unHDL >= 0 && unHDL < 4.0) {
-                        let chol = 0;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 4.0 && unHDL < 5.0) {
-                        let chol = 1;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 5.0 && unHDL < 6.0) {
-                        let chol = 2;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
-                    } else if (unHDL >= 6.0) {
-                        let chol = 3;
-                        let resultScore = score2op[sex][smoke][age][sap][chol];
-                        console.log(resultScore);
+                age = 9;
+                if (systolic.value >= 160) {
+                    sap = 0;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 1;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 120 && systolic.value < 140) {
+                    sap = 2;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
+                    } else if (systolic.value >= 100 && systolic.value < 120) {
+                    sap = 3;
+                    if (unHDL < 4.0) {
+                        chol = 0;
+                        } else if (unHDL >= 4.0 && unHDL < 5.0) {
+                        chol = 1;
+                        } else if (unHDL >= 5.0 && unHDL < 6.0) {
+                        chol = 2;
+                        } else if (unHDL >= 6.0) {
+                        chol = 3;
+                        }
                     }
                 }
             }
         }
-    }
 
-    if (ateroReveal.checked == true && ateroSize.value >= 50 || diabetes.checked == true && sdDamage.checked == true || sdDurability.value >= 20 || kidneyDisease.checked == true || familyLipids.checked == true && familyDeath.checked == true || strokes.checked == true) {
-        globalScore = "Очень высокий сердечно-сосудистый риск";
-        console.log(globalScore);
-    } else if (chol >= 8.0 || hll >= 4,9 || systolic >= 180 || familyLipids.checked == true && familyDeath.checked == false || diabetes.checked == true && sdDamage.checked == false && sdDurability >= 10 && sdDurability < 20) {
-        globalScore = "Средний сердечно-сосудистый риск";
-        console.log(globalScore);
-    }
+        //Определение риска по SCORE для молодого населения
 
+        if (isold.value < 40) {
+            if (issmoke.checked == true) {
+                smoke = 0;
+                if (systolic.value >= 180) {
+                    sap = 0;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                } else if (systolic.value >= 160 && systolic.value < 180) {
+                    sap = 1;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 2;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                } else if (systolic.value < 140) {
+                    sap = 3;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                }
+            } else if (issmoke.checked == false) {
+                smoke = 1;
+                if (systolic.value >= 180) {
+                    sap = 0;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                } else if (systolic.value >= 160 && systolic.value < 180) {
+                    sap = 1;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                } else if (systolic.value >= 140 && systolic.value < 160) {
+                    sap = 2;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                } else if (systolic.value < 140) {
+                    sap = 3;
+                    if (tch.value < 5) {
+                        chol = 0;
+                    } else if (tch.value >= 5 && tch.value < 6) {
+                        chol = 1;
+                    } else if (tch.value >= 6 && tch.value < 7) {
+                        chol = 2;
+                    } else if (tch.value >= 7 && tch.value < 8) {
+                        chol = 3;
+                    } else if (tch.value >= 8) {
+                        chol = 4;
+                    }
+                }
+            }
+        }
+
+        //Вывод результатов в консоль
+
+        if (isold.value >=40) {
+        resultScore = score2op[sex][smoke][age][sap][chol];
+        } else if (isold.value < 40) {
+        resultScore = score1[smoke][sap][chol];
+        }
+        console.log(resultScore);
+
+        //Определение глобального сердечно-сосудсистого риска по общим данным
+
+        if (extreme.checked == true) {
+            globalScore = "Экстремальный сердечно-сосудистый риск";
+            goalLipids = [4.0, 1.0, 1.0, 2.2, 1.7]
+            differenceLowLipids = (hll.value - goalLipids[1]) * 100 / hll.value;
+            differenceLowLipids = Math.round(differenceLowLipids);
+        } else if (resultScore > 7.5 && isold.value < 50 || resultScore > 10 && isold.value >= 50 && isold.value < 70 || resultScore > 15 && isold.value >= 70 || ateroReveal.checked == true && ateroSize.value >= 50 || diabetes.checked == true && sdDamage.checked == true || diabetes.checked == true && sdDurability.value >= 20 || kidneyDisease.checked == true && skf.value < 30 || familyLipids.checked == true && familyDeath.checked == true || strokes.checked == true) {
+            globalScore = "Очень высокий сердечно-сосудистый риск";
+            goalLipids = [4.0, 1.4, 1.0, 2.2, 1.7];
+            differenceLowLipids = (hll.value - goalLipids[1]) * 100 / hll.value;
+            differenceLowLipids = Math.round(differenceLowLipids);
+        } else if (chol.value >= 8.0 || hll.value >= 4.9 || systolic.value >= 180 || familyLipids.checked == true && familyDeath.checked == false || diabetes.checked == true && sdDamage.checked == false && sdDurability.value >= 10 && sdDurability.value < 20 || kidneyDisease.checked == true && skf.value >=30 && skf.value < 60 || ateroReveal.checked == true && ateroSize.value >= 25 && ateroSize.value < 50 || resultScore >= 2.5 && resultScore <= 7.5 && isold.value < 50 || resultScore >= 5 && resultScore <= 10 && isold.value >= 50 && isold.value < 70 || resultScore >= 7.5 && resultScore <= 15 && isold.value >= 70) {
+            globalScore = "Высокий сердечно-сосудистый риск";
+            console.log(globalScore);
+            goalLipids = [4.0, 1.8, 1.0, 2.6, 1.7];
+            differenceLowLipids = (hll.value - goalLipids[1]) * 100 / hll.value;
+            differenceLowLipids = Math.round(differenceLowLipids);
+        } else if (isold.value < 40 && diabetes.checked == true && sdDamage.checked == false && sdDurability.value < 10 && resultScore < 2.5 && isold.value < 50 || isold.value < 40 && diabetes.checked == true && sdDamage.checked == false && sdDurability.value < 10 && resultScore < 5 && isold.value >= 50 && isold.value < 70 || isold.value < 40 && diabetes.checked == true && sdDamage.checked == false && sdDurability.value < 10 && resultScore < 7.5 && isold.value >= 70) {
+            globalScore = "Средний сердчено-сосудситый риск";
+            console.log(globalScore);
+            goalLipids = [4.0, 2.6, 1.0, 2.6, 1.7];
+            differenceLowLipids = (hll.value - goalLipids[1]) * 100 / hll.value;
+            differenceLowLipids = Math.round(differenceLowLipids);
+        }  else if (resultScore < 2.5 && isold.value < 50 || resultScore < 5 && isold.value >= 50 && isold.value < 70 || resultScore < 7.5 && isold.value >= 70) {
+            globalScore = "Низкий сердчено-сосудситый риск";
+            console.log(globalScore);
+            goalLipids = [4.0, 3.0, 1.0, 2.6, 1.7];
+            differenceLowLipids = (hll.value - goalLipids[1]) * 100 / hll.value;
+            differenceLowLipids = Math.round(differenceLowLipids);
+        }
+
+        //Изменение табличных значений целевых показателей в зависимости от пола
+        if (sex = 0) {
+            goalLipids[3] = 1.2;
+        } else if (sex= 1) {
+            goalLipids[3] = 1.0;
+        }
+
+        console.log(goalLipids);
+        console.log(differenceLowLipids);
+
+        //Оформление результатов через манипуляцию DOM-деревом
+
+        if (globalScore =="Экстремальный сердечно-сосудистый риск") {
+            main.after(result);
+            result.id = 'result';
+            result.classList.add('extremal');
+            result.innerHTML = "<h3>Экстремальный сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><p>Липидограмма пациента на данный момент:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table><p>Целевые показатели липидного спектра:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table><p>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
+        } else if (globalScore == "Очень высокий сердечно-сосудистый риск") {
+            main.after(result);
+            result.classList.add('very-high-risk');
+            result.innerHTML = "<h3>Очень высокий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><p>Липидограмма пациента на данный момент:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table><p>Целевые показатели липидного спектра:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table><p>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
+            } else if (globalScore == "Высокий сердечно-сосудистый риск") {
+                main.after(result);
+                result.classList.add('high-risk');
+                result.innerHTML = "<h3>Высокий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><p>Липидограмма пациента на данный момент:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table><p>Целевые показатели липидного спектра:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table><p>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
+            } else if (globalScore == "Средний сердчено-сосудситый риск") {
+                main.after(result);
+                result.classList.add('medium-risk');
+                result.innerHTML = "<h3>Средний сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><p>Липидограмма пациента на данный момент:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table><p>Целевые показатели липидного спектра:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table><p>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
+            } else if (globalScore == "Низкий сердчено-сосудситый риск") {
+                main.after(result);
+                result.classList.add('low-risk');
+                result.innerHTML = "<h3>Низкий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><p>Липидограмма пациента на данный момент:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table><p>Целевые показатели липидного спектра:</p><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table><p>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
+            }
 }
 
-//Объявление функции кнопки
-form.addEventListener('submit', retrieveFormValue);
 
-//Глобальная шкала сердечно-сосудистых заболеваний
+form.addEventListener('submit', retrieveFormValue);
