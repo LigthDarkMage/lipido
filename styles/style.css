@@ -29,6 +29,7 @@ header {
     justify-content: space-between;
     background-color: #7B68EE;
     padding: 0 60px 0 60px;
+    margin-bottom: 20px;
 }
 
 .logo h2 {
@@ -43,10 +44,8 @@ input {
 }
 
 main {
-    width: 800px;
     display: block;
     margin: 0;
-    padding-left: 20px;
     font-size: 16px;
 }
 
@@ -125,7 +124,10 @@ legend {
 }
 
 section {
-    margin: 20px 0 20px 0;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
 }
 
 section p {
@@ -166,4 +168,44 @@ section h3 {
 
 .low-risk h3 {
     background-color: #9ACD32;
+}
+
+.hidden {
+    display: none;
+}
+
+.checkbox {
+	vertical-align: top;
+	width: 17px;
+	height: 17px;
+	margin: 0 3px 0 0;
+    background-color: #7B68EE;
+    cursor: pointer;
+}
+
+.totaltherapy {
+    border: 2px solid forestgreen;
+}
+
+.totaltherapy legend {
+    color: forestgreen;
+}
+
+.result fieldset p {
+    padding: 0;
+}
+
+.result ul {
+    margin: 0;
+}
+
+.result th, td {
+    width: 178px;
+    height: 23,5px;
+    text-align: center;
+}
+
+.result .goal {
+    color: green;
+    font-weight: bold;
 }
