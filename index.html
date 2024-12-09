@@ -18,11 +18,11 @@
                 </ul>
             </div>
         </header>
-        <main>
+        <main id="main">
             <section>
             <h3>Рассчитать сердечно-сосудстый риск</h3>
             <div class="content">
-            <p>Рассчитатйе сердечно-сосудистый риск для назначения адекватной гиполипидемической терапии и профилактики ишемической болезни сердца. Для этого заполните форму, и нажмите кнопку рассчитать.</p>
+            <p>Рассчитайте сердечно-сосудистый риск для назначения адекватной гиполипидемической терапии и профилактики ишемической болезни сердца. Для этого заполните форму, и нажмите кнопку рассчитать.</p>
             <form id="form">
                 <fieldset>
                     <legend>Общие данные пациента</legend>
@@ -44,7 +44,7 @@
                         <label for="sap">Систолическое артериальное давление: <input type="number" name="sap" id="sap" min="0" max="300"> мм.рт.ст.</label><br>
                     </div>
                     <div>
-                        Липидограмма пациента:
+                        <p>Липидограмма пациента:</p>
                         <table class=".lipids-now">
                             <thead>
                                 <tr>
@@ -68,44 +68,44 @@
                 <fieldset>
                     <legend>Данные анамнеза пацинета</legend>
                 <div>
-                    Cемейная гиперхолестеринемия:
-                    <input type="checkbox" name="family-lipids" id="have-family-lipids"><br>
+                    <label for="have-family-lipids">Cемейная гиперхолестеринемия:</label>
+                    <input type="checkbox" name="family-lipids" id="have-family-lipids" class="checkbox"><br>
                 </div>
                 <div>
-                    Ранняя смертность у родственников пациента от сердечных заболеваний:
-                    <input type="checkbox" name="family-death" id="was-death"><br>
+                    <label for="was-death">Ранняя смертность у родственников пациента от сердечных заболеваний:</label>
+                    <input type="checkbox" name="family-death" id="was-death" class="checkbox"><br>
                 </div>
                 <div>
-                    Случаи инсульта или инфаркта у пациента:
-                    <input type="checkbox" name="strokes" id="was-strokes"><br>
+                    <label for="was-strokes">Случаи инсульта или инфаркта у пациента:</label>
+                    <input type="checkbox" name="strokes" id="was-strokes" class="checkbox"><br>
                 </div>
                 <div>
-                    Инфаркт или инсульт возник на фоне оптимальной гиполипидемической терапии:
-                    <input type="checkbox" name="extreme" id="extreme"><br>
-                </div>
-                <div>
-                    Наличие сахарного диабета у пациента:
-                    <input type="checkbox" name="diabetes" id="have-diabetes">
+                    <label for="extreme">Инфаркт или инсульт возник на фоне оптимальной гиполипидемической терапии:</label>
+                    <input type="checkbox" name="extreme" id="extreme" class="checkbox"><br>
                 </div>
                 <div class="have-diabetes">
-                    Поражены ли органы-мишени?
-                    <input type="checkbox" name="sd-damaged-organs" id="sd-yes"><br>
+                    <label for="have-diabetes">Наличие сахарного диабета у пациента:</label>
+                    <input type="checkbox" name="diabetes" id="have-diabetes" class="checkbox">
                 </div>
-                <div>
-                    Как долго пациент болеет диабетом?
+                <div class="hidden" id="sd-damaged-organs">
+                    <label for="sd-yes">Поражены ли органы-мишени?</label>
+                    <input type="checkbox" name="sd-damaged-organs" id="sd-yes" class="checkbox"><br>
+                </div>
+                <div class="hidden" id="sd-durability">
+                    <label for="durability-diabetes">Как долго пациент болеет диабетом?</label>
                     <label for="durability-diabetes"><input type="number" name="durability-diabetes" id="durability-diabetes" min="0" max="100"> лет</label>
                 </div>
                 <div>
-                    Наличие хронической болезни почек или почечной недостаточности:
-                    <input type="checkbox" name="kidneys-disease" id="have-kidneys-disease"><br>
+                    <label for="have-kidneys-disease">Наличие хронической болезни почек или почечной недостаточности:</label>
+                    <input type="checkbox" name="kidneys-disease" id="have-kidneys-disease" class="checkbox"><br>
+                </div>
+                <div class="hidden" id="skf">
+                    Скорость клубочковой фильтрации по CKD-EPI:
+                    <label for="skf"><input type="number" name="skf" id="skf" min="0" max="999"> мл/мин/1,73м³</label><br>
                 </div>
                 <div>
-                    Скорость клубочковой фильтрации:
-                    <label for="skf"><input type="number" name="skf" id="skf" min="0" max="999"> мл/мин</label><br>
-                </div>
-                <div>
-                    Наличие атреосклероза, подтверждённые инструментальным обследованием:
-                    <input type="checkbox" name="atero-revealed" id="atero-yes"><br>
+                    <label for="atero-yes">Наличие атреосклероза, подтверждённые инструментальным обследованием:</label>
+                    <input type="checkbox" name="atero-revealed" id="atero-yes" class="checkbox"><br>
                 </div>
                 <div>
                     Насколько аткросклеротическая бляшка перекрывает просвет сосудов?
@@ -115,6 +115,9 @@
                 <input type="submit" value="Рассчитать" class="button">
                 </form>
                 </div>
+                </section>
+                <section>
+
                 </section>
         </main>
         <footer>
