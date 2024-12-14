@@ -519,7 +519,7 @@ function retrieveFormValue (event) {
     event.preventDefault();
 //Объявление каждого элемента формы
     //Группа для расчета по шкале SCORE-2OP
-    const isfemale = form.querySelector('[name="sex"]'),
+    const isfemale = form.querySelector('[name="sex"]');
           isold = form.querySelector('[name="age"]');
           issmoke = form.querySelector('[name="smoke"]');
           systolic = form.querySelector('[name="sap"]');
@@ -730,7 +730,7 @@ function retrieveFormValue (event) {
                 main.replaceChild(result, main.children[1]);
                 result.classList.add('low-risk');
                 result.classList.add('result')
-                result.innerHTML = "<h3>Низкий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><p>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
+                result.innerHTML = "<h3>Низкий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><fieldset><legend>Целевые показатели липидограммы пациента</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table></fieldset><p id='dif'>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
             }
 
         if (tg.value > 1.7) {
@@ -775,13 +775,13 @@ function retrieveFormValue (event) {
 
         if (totaltherapy == 0) {
             result.children[1].appendChild(divblock);
-            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p>Рекомендовано для пациента модификация образа жизни, которая в себя включает:<ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul></p><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
+            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
         } else if (totaltherapy == 1) {
             result.children[1].appendChild(divblock);
-            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p>Рекомендовано для пациента модификация образа жизни, которая в себя включает:<ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul></p><p>А также показана лекарственная терапия по усмотрению лечащего врача.</p><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
+            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>А также показана лекарственная терапия по усмотрению лечащего врача.</p><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
         } else if (totaltherapy == 2) {
             result.children[1].appendChild(divblock);
-            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p>Рекомендовано для пациента модификация образа жизни, которая в себя включает:<ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul></p><p>А также показана лекарственная терапия.</p><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
+            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>А также показана лекарственная терапия.</p><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
         }
         
         if (hll.value < goalLipids[1]) {
@@ -789,77 +789,62 @@ function retrieveFormValue (event) {
             document.querySelector('[id="dif"]').classList.add('goal');
         }
 
-        let atoris;
+        //Выбор гиполипидемической терапии
 
-        let roxera;
-    
-        let roxeraPlus;
-    
-        let alirocumab;
+        if (differenceLowLipids >= 30 && differenceLowLipids < 36) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 36 && differenceLowLipids < 41) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 41 && differenceLowLipids < 45) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 45 && differenceLowLipids < 47) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 30 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 47 && differenceLowLipids < 49) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 49 && differenceLowLipids < 51) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 15 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 51 && differenceLowLipids < 53) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 53 && differenceLowLipids < 56) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Аторвастатин 80 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 56 && differenceLowLipids < 58) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 58 && differenceLowLipids < 61) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 10 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 61 && differenceLowLipids < 66) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 20 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 66 && differenceLowLipids < 71) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 40 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 71 && differenceLowLipids < 85) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран</li></ul></fieldset>";
+        } else if (differenceLowLipids >= 85) {
+            result.children[1].appendChild(medicine);
+            medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная комбинированная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран 284 мг однократно, затем через 3 месяца, затем 1 раз в 6 месяцев</li></ul></fieldset>";
+        }
 
-        //Выбор лекарственной терапии
-
-        //1.Режим назначения аторвастатина
-        if (differenceLowLipids >= 30 && differenceLowLipids < 44) {
-            atoris = "Аторвастатин по 10 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 44 && differenceLowLipids < 46) {
-            atoris = "Аторвастатин по 20 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 46 && differenceLowLipids < 48) {
-            atoris = "Аторвастатин по 30 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 48 && differenceLowLipids < 55) {
-            atoris = "Аторвастатин 40 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 55) {
-            atoris = "Аторвастатин 40 мг x 2 р/д per os";
-        }
-        //2.Режим назначения розувастатина
-        if (differenceLowLipids >= 40 && differenceLowLipids < 46) {
-            roxera = "Розувастатин 5 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 46 && differenceLowLipids < 50) {
-            roxera = "Розувастатин 10 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 50 && differenceLowLipids < 52) {
-            roxera = "Розувастатин 15 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 52 && differenceLowLipids < 57) {
-            roxera = "Розувастатин 20 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 57) {
-            roxera = "Розувастатин 20 мг x 2 р/д per os";
-        }
-        //3.Режим назначения статина + эзетимиба
-        if (differenceLowLipids >= 60 && differenceLowLipids < 65) {
-            roxeraPlus = "Розувастатин 10 мг + Эзетимиб 10 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 65 && differenceLowLipids < 70) {
-            roxeraPlus = "Розувастатин 20 мг + Эзетимиб 10 мг x 1 р/д per os";
-        } else if (differenceLowLipids >= 70 && differenceLowLipids < 85) {
-            roxeraPlus = "Розувастатин 40 мг + Эзетимиб 10 мг x 1 р/д per os"
-        }
-        //4.Режим назначения алирокумаба
-        if (differenceLowLipids >= 60 && differenceLowLipids) {
-            alirocumab = "Алирокумаб или Эволокумаб или Инклисиран per injectio";
-        }
-
-        //Назначение гиполипидемической терапии
-        if (differenceLowLipids >= 30 && differenceLowLipids < 40) {
-            result.children[1].appendChild(medicine);
-            medicine.innerHTML = "<fieldset><legend>Лекарственная терапия</legend><p>Рекомендовано умеренная терапия статинами:</p><ul id='medical'><li>"+ atoris +"</li></ul></fieldset>";
-        } else if (differenceLowLipids >= 40 && differenceLowLipids < 50) {
-            result.children[1].appendChild(medicine);
-            medicine.innerHTML = "<fieldset><legend>Лекарственная терапия</legend><p>Рекомендовано умеренная терапия статинами:</p><ul id='medical'><li>"+ atoris +"</li><p>ИЛИ<p><li>"+ roxera +"</li></ul></fieldset>";
-        } else if (differenceLowLipids >= 50 && differenceLowLipids < 60) {
-            result.children[1].appendChild(medicine);
-            medicine.innerHTML = "<fieldset><legend>Лекарственная терапия</legend><p>Рекомендовано интенсивная терапия статинами:</p><ul id='medical'><li>"+ atoris +"</li><p>ИЛИ<li>"+ roxera +"</li></ul></fieldset>";
-        } else if (differenceLowLipids >= 60 && differenceLowLipids < 85) {
-            result.children[1].appendChild(medicine);
-            medicine.innerHTML = "<fieldset><legend>Лекарственная терапия</legend><p>Рекомендовано терапия статинами c добавлением эзетимиба:</p><ul id='medical'><li>"+ roxeraPlus +"</li></ul></fieldset>";
-        }
-        //5. Назначение фенофибрата
-        if (tg.value >= 1.7 && tg.value <= 2.3) {
-            document.querySelector('[id="medical"]').after(tgmedicine);
-            tgmedicine.innerHTML = "<p>Рекомендовано назначение препаратов для снижения ТГ:</p><ul><li>Омега-3 ПНЖК по 2г x 2 р/д</li></ul>";
-        } else if (tg.value > 2.3 && tg.value < 5.0) {
-            document.querySelector('[id="medical"]').after(tgmedicine);
-            tgmedicine.innerHTML = "<p>Рекомендовано назначение препаратов для снижения ТГ:</p><ul><li>Фенофибрат по 1 табл x 1 р/д</li><p>ИЛИ</p><li>Омега-3 ПНЖК по 2г x 2 р/д</li></ul>";
+        //Назначение фенофибрата
+        if (tg.value >= 1.7 && tg.value < 2.3) {
+            document.querySelector('[id="medical"]').appendChild(tgmedicine);
+            tgmedicine.innerHTML = "<p><b>Рекомендовано назначение препаратов для снижения ТГ:</b></p><ul><li>Фенофибрат 145 мг 1 таблетка 1 раз в день</li></ul>";
+        } else if (tg.value >= 2.3 && tg.value < 5.0) {
+            document.querySelector('[id="medical"]').appendChild(tgmedicine);
+            tgmedicine.innerHTML = "<p><b>Рекомендовано назначение препаратов для снижения ТГ:</b></p><ul><li>Фенофибрат 145 мг 1 таблетка 1 раз в день</li><p>ИЛИ</p><li>омега-3 ПНЖК 1000 мг 2 раза в день/сут</li></ul>";
         } else if (tg.value >= 5.0) {
-            document.querySelector('[id="medical"]').after(tgmedicine);
-            tgmedicine.innerHTML = "<p>Рекомендовано назначение препаратов для снижения ТГ:</p><ul><li>Фенофибрат по 1 табл x 1 р/д</li><p>И</p><li>Омега-3 ПНЖК по 2г x 2 р/д</li></ul>";
+            document.querySelector('[id="medical"]').appendChild(tgmedicine);
+            tgmedicine.innerHTML = "<p><b>Рекомендовано назначение препаратов для снижения ТГ:</b></p><ul><li>Фенофибрат 145 мг 1 таблетка 1 раз в день+ омега-3 ПНЖК 2000 мг 2 раза в день /сут</li><li>Возможен плазмоферез, плазмосорбция</li></ul>";
         }
 }
 
