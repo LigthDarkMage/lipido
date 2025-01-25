@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>Калькулятор сердечно-сосудстого риска</title>
+        <title>Калькулятор сердечно-сосудистого риска</title>
         <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
         <meta charset="utf-8">
     </head>
     <body>
         <header>
             <div class="logo">
-                <h2>atorva</h2>
+                <img src="img/lipido.svg" width="135px" height="35px">
             </div>
             <div>
                 <ul class="main-menu">
@@ -19,109 +20,133 @@
             </div>
         </header>
         <main id="main">
-            <section>
-            <h3>Рассчитать сердечно-сосудстый риск</h3>
-            <div class="content">
-            <p>Рассчитайте сердечно-сосудистый риск для назначения адекватной гиполипидемической терапии и профилактики ишемической болезни сердца. Для этого заполните форму, и нажмите кнопку рассчитать.</p>
-            <form id="form">
-                <fieldset>
-                    <legend>Общие данные пациента</legend>
-                    <div>
-                        Пол пациента:
-                        <label for="female"><input type="radio" name="sex" id="female" required> Женский</label>
-                        <label for="male"><input type="radio" name="sex" id="male" required> Мужской</label><br>
-                    </div>
-                    <div>
-                        Возраст пациента:
-                        <label for="age"><input type="number" name="age" id="age" min="0" max="200"> лет</label><br>
-                    </div>
-                    <div>
-                        Курит ли пациент?:
-                        <label for="not-smoke"><input type="radio" name="smoke" id="not-smoke"> Не курит</label>
-                        <label for="smokes"><input type="radio" name="smoke" id="smokes"> Курит</label><br>
-                    </div>
-                    <div>
-                        <label for="sap">Систолическое артериальное давление: <input type="number" name="sap" id="sap" min="0" max="300"> мм.рт.ст.</label><br>
-                    </div>
-                    <div>
-                        <p>Липидограмма пациента:</p>
-                        <table class=".lipids-now">
-                            <thead>
-                                <tr>
-                                    <th>Общий холестерин</th>
-                                    <th>ХС ЛНП</th>
-                                    <th>ХС ЛВП</th>
-                                    <th>Триглицериды</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><input type="number" name="chol" id="chol" step="any"></td>
-                                    <td><input type="number" name="hll" id="hll" step="any"></td>
-                                    <td><input type="number" name="hdl" id="hdl" step="any"></td>
-                                    <td><input type="number" name="tg" id="tg" step="any"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Данные анамнеза пацинета</legend>
-                <div>
-                    <label for="have-family-lipids">Cемейная гиперхолестеринемия:</label>
-                    <input type="checkbox" name="family-lipids" id="have-family-lipids" class="checkbox"><br>
-                </div>
-                <div>
-                    <label for="was-death">Ранняя смертность у родственников пациента от сердечных заболеваний:</label>
-                    <input type="checkbox" name="family-death" id="was-death" class="checkbox"><br>
-                </div>
-                <div>
-                    <label for="was-strokes">Случаи инсульта или инфаркта у пациента:</label>
-                    <input type="checkbox" name="strokes" id="was-strokes" class="checkbox"><br>
-                </div>
-                <div>
-                    <label for="extreme">Инфаркт или инсульт возник на фоне оптимальной гиполипидемической терапии:</label>
-                    <input type="checkbox" name="extreme" id="extreme" class="checkbox"><br>
-                </div>
-                <div class="have-diabetes">
-                    <label for="have-diabetes">Наличие сахарного диабета у пациента:</label>
-                    <input type="checkbox" name="diabetes" id="have-diabetes" class="checkbox">
-                </div>
-                <div class="hidden" id="sd-damaged-organs">
-                    <label for="sd-yes">Поражены ли органы-мишени?</label>
-                    <input type="checkbox" name="sd-damaged-organs" id="sd-yes" class="checkbox"><br>
-                </div>
-                <div class="hidden" id="sd-durability">
-                    <label for="durability-diabetes">Как долго пациент болеет диабетом?
-                    <input type="number" name="durability-diabetes" id="durability-diabetes" min="0" max="100"> лет</label>
-                </div>
-                <div>
-                    <label for="have-kidneys-disease">Наличие хронической болезни почек или почечной недостаточности:</label>
-                    <input type="checkbox" name="kidneys-disease" id="have-kidneys-disease" class="checkbox"><br>
-                </div>
-                <div class="hidden" id="skf">
-                    Скорость клубочковой фильтрации по CKD-EPI:
-                    <label for="skfvalue"><input type="number" name="skf" id="skfvalue" min="0" max="999"> мл/мин/1,73м³</label><br>
-                </div>
-                <div>
-                    <label for="atero-yes">Наличие атреосклероза, подтверждённые инструментальным обследованием:</label>
-                    <input type="checkbox" name="atero-revealed" id="atero-yes" class="checkbox"><br>
-                </div>
-                <div>
-                    Насколько аткросклеротическая бляшка перекрывает просвет сосудов?
-                    <label for="atero-size"><input type="number" name="atero-size" id="atero-size" min="0" max="100"> %</label><br>
-                </div>
-                </fieldset>
-                <input type="submit" value="Рассчитать" class="button">
-                </form>
-                </div>
-                </section>
-                <section>
+            <div class="main-content">
+                <article>
+                    <nav>
+                        <h3>Навигация по калькуляторам</h3>
+                        <ul>
+                            <li><a>Калькулятор ССР</a></li>
+                            <li><a href="skf.html">Калькулятор СКФ</a></li>
+                            <li><a href="dlcn.html">Голландские критерии СГХС</a></li>
+                        </ul>
+                    </nav>
+                </article>
+                <article id="calc-CVR">
+                    <section>
+                        <h3>Рассчитать сердечно-сосудстый риск</h3>
+                        <div class="content">
+                            <p>Рассчитайте сердечно-сосудистый риск для назначения адекватной гиполипидемической терапии и профилактики ишемической болезни сердца. Для этого заполните форму, и нажмите кнопку рассчитать.</p>
+                            <form id="form">
+                                <fieldset>
+                                    <legend>Общие данные пациента</legend>
+                                    <div>
+                                        Пол пациента:
+                                        <label for="female"><input type="radio" name="sex" id="female" required> Женский</label>
+                                        <label for="male"><input type="radio" name="sex" id="male" required> Мужской</label><br>
+                                    </div>
+                                    <div>
+                                        Возраст пациента:
+                                        <label for="age"><input type="number" name="age" id="age" min="0" max="200"> лет</label><br>
+                                    </div>
+                                    <div>
+                                        Курит ли пациент?:
+                                        <label for="not-smoke"><input type="radio" name="smoke" id="not-smoke"> Не курит</label>
+                                        <label for="smokes"><input type="radio" name="smoke" id="smokes"> Курит</label><br>
+                                    </div>
+                                    <div>
+                                        <label for="sap">Систолическое артериальное давление: <input type="number" name="sap" id="sap" min="0" max="300"> мм.рт.ст.</label><br>
+                                    </div>
+                                    <div>
+                                        <p>Липидограмма пациента:</p>
+                                        <table class=".lipids-now">
+                                            <thead>
+                                                <tr>
+                                                    <th>Общий холестерин</th>
+                                                    <th>ХС ЛНП</th>
+                                                    <th>ХС ЛВП</th>
+                                                    <th>Триглицериды</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="number" name="chol" id="chol" step="any"></td>
+                                                    <td><input type="number" name="hll" id="hll" step="any"></td>
+                                                    <td><input type="number" name="hdl" id="hdl" step="any"></td>
+                                                    <td><input type="number" name="tg" id="tg" step="any"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <legend>Данные анамнеза пацинета</legend>
+                                <div>
+                                    <label for="have-family-lipids">Cемейная гиперхолестеринемия:</label>
+                                    <input type="checkbox" name="family-lipids" id="have-family-lipids" class="checkbox"><br>
+                                </div>
+                                <div>
+                                    <label for="was-death">Ранняя смертность у родственников пациента от сердечных заболеваний:</label>
+                                    <input type="checkbox" name="family-death" id="was-death" class="checkbox"><br>
+                                </div>
+                                <div>
+                                    <label for="was-strokes">Случаи инсульта или инфаркта у пациента:</label>
+                                    <input type="checkbox" name="strokes" id="was-strokes" class="checkbox"><br>
+                                </div>
+                                <div>
+                                    <label for="extreme">Инфаркт или инсульт возник на фоне оптимальной гиполипидемической терапии:</label>
+                                    <input type="checkbox" name="extreme" id="extreme" class="checkbox"><br>
+                                </div>
+                                <div class="have-diabetes">
+                                    <label for="have-diabetes">Наличие сахарного диабета у пациента:</label>
+                                    <input type="checkbox" name="diabetes" id="have-diabetes" class="checkbox">
+                                </div>
+                                <div class="hidden" id="sd-damaged-organs">
+                                    <label for="sd-yes">Поражены ли органы-мишени?</label>
+                                    <input type="checkbox" name="sd-damaged-organs" id="sd-yes" class="checkbox"><br>
+                                </div>
+                                <div class="hidden" id="sd-durability">
+                                    <label for="durability-diabetes">Как долго пациент болеет диабетом?
+                                    <input type="number" name="durability-diabetes" id="durability-diabetes" min="0" max="100"> лет</label>
+                                </div>
+                                <div>
+                                    <label for="have-kidneys-disease">Наличие хронической болезни почек или почечной недостаточности:</label>
+                                    <input type="checkbox" name="kidneys-disease" id="have-kidneys-disease" class="checkbox"><br>
+                                </div>
+                                <div class="hidden" id="skf">
+                                    Скорость клубочковой фильтрации по CKD-EPI:
+                                    <label for="skfvalue"><input type="number" name="skf" id="skfvalue" min="0" max="999"> мл/мин/1,73м³</label><br>
+                                </div>
+                                <div>
+                                    <label for="atero-yes">Наличие атеросклероза, подтверждённые инструментальным обследованием:</label>
+                                    <input type="checkbox" name="atero-revealed" id="atero-yes" class="checkbox"><br>
+                                </div>
+                                <div>
+                                    Насколько атеросклеротическая бляшка перекрывает просвет сосудов?
+                                    <label for="atero-size"><input type="number" name="atero-size" id="atero-size" min="0" max="100"> %</label><br>
+                                </div>
+                                </fieldset>
+                                <input type="submit" value="Рассчитать" class="button">
+                                </form>
+                            </div>
+                        </section>
+                        <section>
 
-                </section>
+                        </section>
+                    </article>
+                </div>
         </main>
         <footer>
-
+            <div class="footer-logo">
+                <img src="img/lipido.svg" width="270px" height="70px">
+            </div>
+            <div class="footer-menu">
+                <ul>
+                    <li>Главная</li>
+                    <li>Калькулятор</li>
+                    <li>Об атеросклерозе</li>
+                    <li>О проекте</li>
+                </ul>
+            </div>
         </footer>
         <script src="scripts/script.js"></script>
     </body>
