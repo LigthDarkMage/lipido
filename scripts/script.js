@@ -530,6 +530,8 @@ function retrieveFormValue (event) {
 
 
     //Управление DOM-деревом
+    var CVRblock = document.querySelector('[id="calc-CVR"]');
+    console.log(CVRblock.children[1]);
     var result = document.createElement('section');
     var divblock = document.createElement('div');
     var hightg = document.createElement('p');
@@ -706,30 +708,30 @@ function retrieveFormValue (event) {
         //Оформление результатов через манипуляцию DOM-деревом
 
         if (globalScore =="Экстремальный сердечно-сосудистый риск") {
-            main.replaceChild(result, main.children[1]);
+            CVRblock.replaceChild(result, CVRblock.children[1]);
             result.id = 'result';
             result.classList.add('extremal');
-            result.classList.add('result')
+            result.classList.add('result');
             result.innerHTML = "<h3>Экстремальный сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><fieldset><legend>Целевые показатели липидограммы пациента</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table></fieldset><p id='dif'>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
         } else if (globalScore == "Очень высокий сердечно-сосудистый риск") {
-            main.replaceChild(result, main.children[1]);
+            CVRblock.replaceChild(result, CVRblock.children[1]);
             result.classList.add('very-high-risk');
-            result.classList.add('result')
+            result.classList.add('result');
             result.innerHTML = "<h3>Очень высокий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><fieldset><legend>Целевые показатели липидограммы пациента</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table></fieldset><p id='dif'>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
             } else if (globalScore == "Высокий сердечно-сосудистый риск") {
-                main.replaceChild(result, main.children[1]);
+                CVRblock.replaceChild(result, CVRblock.children[1]);
                 result.classList.add('high-risk');
-                result.classList.add('result')
+                result.classList.add('result');
                 result.innerHTML = "<h3>Высокий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><fieldset><legend>Целевые показатели липидограммы пациента</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table></fieldset><p id='dif'>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
             } else if (globalScore == "Умеренный сердчено-сосудситый риск") {
-                main.replaceChild(result, main.children[1]);
+                CVRblock.replaceChild(result, CVRblock.children[1]);
                 result.classList.add('medium-risk');
-                result.classList.add('result')
+                result.classList.add('result');
                 result.innerHTML = "<h3>Умеренный сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><fieldset><legend>Целевые показатели липидограммы пациента</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table></fieldset><p id='dif'>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
             } else if (globalScore == "Низкий сердчено-сосудситый риск") {
-                main.replaceChild(result, main.children[1]);
+                CVRblock.replaceChild(result, CVRblock.children[1]);
                 result.classList.add('low-risk');
-                result.classList.add('result')
+                result.classList.add('result');
                 result.innerHTML = "<h3>Низкий сердечно-сосудистый риск</h3><div class='content'><p>По шкале SCORE и SCORE-2 сердечно сосудистый риск составляет: " + resultScore + "%</p><fieldset class='lipids-now'><legend>Липидограмма пациента на данный момент</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ tch.value +"</td><td>"+ hll.value +"</td><td>"+ hdl.value +"</td><td>"+ unHDL.toFixed(2) +"</td><td>"+ tg.value +"</td></tr></tbody></table></fieldset><fieldset><legend>Целевые показатели липидограммы пациента</legend><table><thead><tr><th>Общий холестерин</th><th>ХС ЛНП</th><th>ХС ЛВП</th><th>ХС неЛВП</th><th>Триглицериды</th></tr></thead><tbody><tr><td>"+ goalLipids[0].toFixed(2) +"</td><td>"+ goalLipids[1].toFixed(2) +"</td><td>"+ goalLipids[2].toFixed(2) +"</td><td>"+ goalLipids[3].toFixed(2) +"</td><td>"+ goalLipids[4].toFixed(2) +"</td></tr></tbody></table></fieldset><p id='dif'>Степень снижения ХС-ЛНП составляет: "+ differenceLowLipids +"%</p></div>";
             }
 
