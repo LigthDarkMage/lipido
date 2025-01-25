@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>Калькулятор СКФ по SKD-EPI</title>
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <img src="img/lipido.svg" width="135px" height="35px">
+            </div>
+            <div>
+                <ul class="main-menu">
+                    <li>Калькулятор</li>
+                    <li>Об атеросклерозе</li>
+                    <li>О проекте</li>
+                </ul>
+            </div>
+        </header>
+        <main id="main">
+            <div class="main-content">
+                <article>
+                    <nav>
+                        <h3>Навигация по калькуляторам</h3>
+                        <ul>
+                            <li><a href="index.html">Калькулятор ССР</a></li>
+                            <li><a href="skf.html">Калькулятор СКФ</a></li>
+                            <li>Голландские критерии СГХС</li>
+                        </ul>
+                    </nav>
+                </article>
+                <article id="calc-DLCN">
+                    <section id="dlcn-form">
+                        <h3>Голландские критерии семейной гиперхолестеринемии</h3>
+                        <div class="content">
+                        <p>Узнайте вероятность семейной гиперхолестеринемии по Голландским критериям. Для этого заполните форму, и нажмите кнопку рассчитать.</p>
+                        <form id="form">
+                        <fieldset>
+                            <legend>Общие данные пациента</legend>
+                            <div>
+                                Пол пациента:
+                                <label for="female"><input type="radio" name="sex" id="female" required> Женский</label>
+                                <label for="male"><input type="radio" name="sex" id="male" required> Мужской</label><br>
+                            </div>
+                            <div>
+                                Возраст пациента:
+                                <label for="age"><input type="number" name="age" id="age" min="0" max="200"> лет</label><br>
+                            </div>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Клинические данные</legend>
+                            <span class="dlcn-header">Семейный анамнез</span>
+                            <div class="dlcn-content">
+                                <div>
+                                    Родственники первой линии с известным ранним дебютом ИБС и сосудистых заболеваний (мужчины моложе 55 лет, женщины моложе 60 лет)
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="kin-heart" id="yes" value="yes" required>Да
+                                    <input type="radio" name="kin-heart" id="no" value="no" required>Нет
+                                </div>
+                                <div>
+                                    Родственники первой линии с уровнем ХС ЛПНП > 95-го процентиля
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="kin-lipids" id="yes" value="yes" required>Да
+                                    <input type="radio" name="kin-lipids" id="no" value="no" required>Нет        
+                                </div>
+                                <div>
+                                    Дети моложе 18 лет с уровнем ХС ЛПНП > 95-го процентиля
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="kin-kid-lipids" id="yes" value="yes" required>Да
+                                    <input type="radio" name="kin-kid-lipids" id="no" required>Нет
+                                </div>
+                                <div>
+                                    Ксантомы сухожилий и/или дуги роговицы у родственников первой линии
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="kin-xantomas" id="yes" value="yes" required>Да
+                                    <input type="radio" name="kin-xantomas" id="no" value="no" required>Нет
+                                </div>
+                            </div>
+                            <span class="dlcn-header">Индивидуальный анамнез</span>
+                            <div class="dlcn-content">
+                                <div>
+                                    Пациенты с ранним дебютом ИБС (мужчины моложе 55 лет, женщины моложе 60 лет)
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="indi-heart" id="yes" value="yes" required>Да
+                                    <input type="radio" name="indi-heart" id="no" value="no" required>Нет
+                                </div>
+                                <div>
+                                    Пациенты с ранним дебютом (мужчины моложе 55 лет, женщины моложе 60 лет) цереброваскулярной болезни и заболеваниями периферических артерий
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="indi-vasc" id="yes" value="yes" required>Да
+                                    <input type="radio" name="indi-vasc" id="no" value="no" required>Нет
+                                </div>
+                            </div>
+                            <span class="dlcn-header">Физикальное обследование</span>
+                            <div class="dlcn-content">
+                                <div>
+                                    Ксантоматоз сухожилий
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="xantomas" id="yes" value="yes" required>Да
+                                    <input type="radio" name="xantomas" id="no" value="no" required>Нет
+                                </div>
+                                <div>
+                                    Дуга роговицы в возрасте до 45 лет
+                                </div>
+                                <div class="input-column">
+                                    <input type="radio" name="eye-lip" id="yes" value="yes" required>Да
+                                    <input type="radio" name="eye-lip" id="no" value="no" required>Нет
+                                </div>
+                            </div>
+                            <span class="dlcn-header">Лабораторные данные (ХС-ЛПНП)</span>
+                            <div class="dlcn-content">
+                                <div>
+                                    ХС-ЛПНП у пациента:
+                                </div>
+                                <div>
+                                    <input type="number" name="hdll" id="hdll" step="any" min="0" max="50">
+                                </div>
+                            </div>
+                            <span class="dlcn-header">Анализ ДНК</span>
+                            <div class="dlcn-content">
+                                <div>Мутация в генах LDLR, APOB или PCSK9</div>
+                                <div class="input-column">
+                                    <input type="radio" name="mutate" id="yes" value="yes" required>Да
+                                    <input type="radio" name="mutate" id="no" value="no" required>Нет
+                                </div>
+                            </div>
+                        </fieldset>
+                        <input type="submit" value="Рассчитать" class="button">
+                        </form>
+                        </div>
+                        </section>
+                        <section>
+
+                        </section>
+                </article>
+            </div>
+        </main>
+        <footer>
+            <div class="footer-logo">
+                <img src="img/lipido.svg" width="270px" height="70px">
+            </div>
+            <div class="footer-menu">
+                <ul>
+                    <li>Главная</li>
+                    <li>Калькулятор</li>
+                    <li>Об атеросклерозе</li>
+                    <li>О проекте</li>
+                </ul>
+            </div>
+        </footer>
+        <script src="scripts/dlcn.js"></script>
+    </body>
+</html>
