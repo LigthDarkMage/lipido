@@ -1,8 +1,8 @@
 body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Roboto', sans-serif;
     padding: 0;
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .main-menu {
@@ -21,6 +21,32 @@ body {
     color: wheat;
 }
 
+nav {
+    width: 360px;
+}
+
+nav h3 {
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    background-color: aliceblue;
+    margin: 0;
+}
+
+nav ul li {
+    display: block;
+    width: 338px;
+    height: 20px;
+    padding: 10px;
+    align-content: center;
+    border-bottom: #DCDCDC solid 1px;
+    border-left: #DCDCDC solid 1px;
+    border-right: #DCDCDC solid 1px;
+}
+
 table {
     margin-bottom: 5px;
 }
@@ -28,16 +54,20 @@ table {
 header {
     display: flex;
     justify-content: space-between;
-    background-color: #7B68EE;
+    background-color: #424769;
     padding: 0 60px 0 60px;
     margin-bottom: 20px;
 }
 
+.logo {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 50px;
+}
+
 .logo h2 {
-    margin: 0;
-    vertical-align: middle;
-    color: white;
-    padding-top: 9px;
+    color: #f9b17a;
 }
 
 input {
@@ -45,12 +75,44 @@ input {
 }
 
 main {
-    display: block;
+    display: flex;
     margin: 0;
+}
+
+.main-content {
+    width: 1200px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 footer {
     background-color: #2d2d44;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    padding: 10px;
+}
+
+.footer-logo {
+    align-content: center;
+    align-items: center;
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer li {
+    display: block;
+    width: 120px;
+    height: 30px;
+    align-content: center;
+    font-weight: 600;
 }
 
 form div {
@@ -72,7 +134,7 @@ table {
 
 th {
     padding: 2px;
-    background-color: #7B68EE;
+    background-color: #424769;
     color: white;
 }
 
@@ -101,12 +163,12 @@ td input {
 }
 
 fieldset {
-    border: 2px solid #7B68EE;
+    border: 2px solid #424769;
     margin-bottom: 10px;
 }
 
 legend {
-    color: #7B68EE;
+    color: #424769;
     font-weight: 600;
 }
 
@@ -116,7 +178,7 @@ legend {
     width: 160px;
     height: 30px;
     margin: 2px;
-    background-color: #7B68EE;
+    background-color: #f9b17a;
     color: white;
     font-weight: 600;
     border: none;
@@ -143,8 +205,8 @@ section .content {
     border-bottom: 1px solid #DCDCDC;
 }
 
-section h3 {
-    background-color: #7B68EE;
+section h3, nav h3 {
+    background-color: #424769;
     color: white;
     margin: 0;
     padding: 10px;
@@ -208,4 +270,32 @@ section h3 {
 .result .goal {
     color: green;
     font-weight: bold;
+}
+
+.dlcn-header {
+    background-color: #424769;
+    color: white;
+    display: block;
+    width: auto;
+    padding: 5px;
+}
+
+.dlcn-content {
+    display: grid;
+    grid-template-columns: 85% 15%;
+    align-items: center;
+    align-content: center;
+}
+
+.dlcn-content #hdll {
+    width: 50px;
+}
+
+@media (max-width: 1200px) {
+
+}
+
+@media (max-width: 1160px) {
+
+
 }
