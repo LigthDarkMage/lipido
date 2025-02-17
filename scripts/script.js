@@ -763,7 +763,7 @@ function retrieveFormValue (event) {
             hlltheraphy = 2;
         } else if (hll.value >= 2.6 && hll.value < 3.0) {
             hlltheraphy = 3;
-        } else if (hll.value >= 3.0 && hll.value < 4.0) {
+        } else if (hll.value >= 3.0 && hll.value < 4.9) {
             hlltheraphy = 4;
         } else if (hll.value >= 4.9) {
             hlltheraphy = 5;
