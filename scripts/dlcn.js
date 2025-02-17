@@ -22,7 +22,7 @@ function retrieveFormValue (event) {
 
     var dlcnScore = 0;
 
-    var calcdlcn = document.querySelector('[id="calc-DLCN"]');
+    var calcdlcn = document.querySelector('[class="dutch-lipid-clinic-network"]');
     var resultdlcn = document.createElement('section');
 
     if (kinheart.checked == true || kinlipids.checked == true) {
@@ -67,17 +67,17 @@ function retrieveFormValue (event) {
         calcdlcn.replaceChild(resultdlcn, calcdlcn.children[1]);
         resultdlcn.classList.add('result');
         resultdlcn.classList.add('high-risk');
-        resultdlcn.innerHTML = "<h3>Определенный диагноз семейной гиперхолестеринемии</h3><div class='content'><p>По Голландским критериям семейной гиперхолестеринемии набрано <b>"+ dlcnScore +"</b> баллов</p></div>";
+        resultdlcn.innerHTML = "<h3>Определенный диагноз семейной гиперхолестеринемии</h3><div class='article-content'><p>По Голландским критериям семейной гиперхолестеринемии набрано <b>"+ dlcnScore +"</b> баллов</p></div>";
     } else if (dlcnScore >= 6 && dlcnScore <= 8) {
         calcdlcn.replaceChild(resultdlcn, calcdlcn.children[1]);
         resultdlcn.classList.add('result');
         resultdlcn.classList.add('medium-risk');
-        resultdlcn.innerHTML = "<h3>Вероятный диагноз семейной гиперхолестеринемии</h3><div class='content'><p>По Голландским критериям семейной гиперхолестеринемии набрано <b>"+ dlcnScore +"</b> баллов</p></div>";
+        resultdlcn.innerHTML = "<h3>Вероятный диагноз семейной гиперхолестеринемии</h3><div class='article-content'><p>По Голландским критериям семейной гиперхолестеринемии набрано <b>"+ dlcnScore +"</b> баллов</p></div>";
     } else if (dlcnScore >= 0 && dlcnScore < 6) {
         calcdlcn.replaceChild(resultdlcn, calcdlcn.children[1]);
         resultdlcn.classList.add('result');
         resultdlcn.classList.add('low-risk');
-        resultdlcn.innerHTML = "<h3>Возможный диагноз семейной гиперхолестеринемии</h3><div class='content'><p>По Голландским критериям семейной гиперхолестеринемии набрано <b>"+ dlcnScore +"</b> баллов</p></div>";
+        resultdlcn.innerHTML = "<h3>Возможный диагноз семейной гиперхолестеринемии</h3><div class='article-content'><p>По Голландским критериям семейной гиперхолестеринемии набрано <b>"+ dlcnScore +"</b> баллов</p></div>";
     }
 
 
