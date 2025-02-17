@@ -514,7 +514,7 @@ const form = document.getElementById('form');
           extreme = form.querySelector('[name="extreme"]');
 
 //Основное событие после нажатия кнопки
-function retrieveFormValue (event) {
+form.addEventListener('submit', function(event) {
     event.preventDefault();
 //Объявление каждого элемента формы
     //Группа для расчета по шкале SCORE-2OP
@@ -1016,8 +1016,6 @@ function retrieveFormValue (event) {
         
         
 }
-
-form.addEventListener('submit', retrieveFormValue);
 
 //Создание выпадающего списка при опросе
 
