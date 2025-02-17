@@ -1,279 +1,338 @@
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Nunito', serif;
     padding: 0;
     margin: 0;
-    font-size: 14px;
-}
-
-.main-menu {
-    list-style: none;
-}
-
-.main-menu li{
-    display: inline-block;
-    margin-right: 5px;
-    font-weight: 700;
-    color: white; 
-    vertical-align: middle;
-}
-
-.main-menu li:hover {
-    color: wheat;
-}
-
-nav {
-    width: 360px;
-}
-
-nav h3 {
-    margin: 0;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-    background-color: aliceblue;
-    margin: 0;
-}
-
-nav ul li {
-    display: block;
-    width: 338px;
-    height: 20px;
-    padding: 10px;
-    align-content: center;
-    border-bottom: #DCDCDC solid 1px;
-    border-left: #DCDCDC solid 1px;
-    border-right: #DCDCDC solid 1px;
-}
-
-table {
-    margin-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    font-weight: 600;
 }
 
 header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    background-color: #424769;
-    padding: 0 60px 0 60px;
-    margin-bottom: 20px;
+    padding: 20px;
+    padding-right: 10%;
+    padding-left: 10%;
+    background-color: #3D4D55;
+    margin-bottom: 15px;
 }
 
-.logo {
+.header-left-part {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
-    height: 50px;
+    align-items: center;
+    gap: 12px;
 }
 
-.logo h2 {
-    color: #f9b17a;
+.site-name-header {
+    text-transform: uppercase;
+    color: #B58863;
+    font-weight: bolder;
+    font-size: 24px;
 }
 
-input {
-    text-align: center;
+.site-slogan {
+    margin: 0;
+    padding: 0;
+    color: #D3C3B9;
+}
+
+.header-right-part {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: white;
+}
+
+.header-right-part a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: ease 0.5s;
+    cursor: pointer;
+}
+
+.header-right-part a:hover {
+    color: #D3C3B9;
+    fill: #D3C3B9;
+    transition: ease 0.5s;
 }
 
 main {
-    display: flex;
-    margin: 0;
+    flex: 1;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
 }
 
 .main-content {
-    width: 1200px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-left: auto;
-    margin-right: auto;
+    justify-content: space-between;
 }
 
-footer {
-    background-color: #2d2d44;
+.top-navigation {
     display: flex;
-    justify-content: space-around;
-    color: white;
+    background-color: #DEDCDC;
+}
+
+.top-navigation a {
+    flex: 1;
+}
+
+.article-header {
+    background-color: #3D4D55;
+    color: #D3C3B9;
     padding: 10px;
 }
 
-.footer-logo {
-    align-content: center;
-    align-items: center;
-}
-
-footer ul {
-    list-style: none;
-    padding: 0;
+.article-header p {
     margin: 0;
+    padding: 0;
+    font-weight: bold;
 }
 
-footer li {
-    display: block;
-    width: 120px;
-    height: 30px;
-    align-content: center;
-    font-weight: 600;
+.article-content {
+    background-color: #DEDCDC;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-form div {
-    display: block;
-    margin: 7px 3px 7px 3px;
+/*Навигация по калькулятору*/
+
+.top-navigation-bar {
+    display: none;
 }
 
-form div:first-child {
-    margin: 3px 3px 7px 3px;
+.navigation-content nav {
+    display: flex;
+    flex-direction: column;
 }
 
-form div:last-child {
-    margin: 0px 3px 0 3px;
+.navigation-content {
+    background-color: #DEDCDC;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.navigation-content nav a {
+    transition: ease 0.5s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.navigation-content nav a:hover {
+    background-color: #D3C3B9;
+    transition: ease 0.5s;
+}
+
+.navigation-content nav a {
+    padding: 10px;
+}
+
+.side-navigation {
+    width: 25%;
+}
+
+.side-navigation .selected-a {
+    border-left: solid 3px #B58863;
+    color: #B58863;
+}
+
+.top-navigation a {
+    padding: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+}
+
+.top-navigation a:hover {
+    background-color: #D3C3B9;
+    transition: ease 0.5s;
+}
+
+.top-navigation .selected-a {
+    border-bottom: solid 3px #B58863;
+    color: #B58863;
+}
+
+/*Подвал сайта*/
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    padding-left: 15%;
+    padding-right: 15%;
+    background-color: #10232A;
+    margin-top: 15px;
+
+}
+
+.footer-left-part {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.site-name-footer {
+    color: #B58863;
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-size: 36px;
+}
+
+.site-slogan-footer {
+    color: #D3C3B9;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-right-part {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+    color: white;
+}
+
+.footer-right-part a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-right-part a p {
+    margin: 0;
+    padding: 0;
+}
+
+/*Калькулятор ССР*/
+
+.cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index {
+    width: 70%;
+}
+
+.lipids-now {
+    width: max-content;
+}
+
+p {
+    margin: 0;
+    padding: 0;
 }
 
 table {
     border-collapse: collapse;
+    border: none;
 }
 
-th {
-    padding: 2px;
-    background-color: #424769;
-    color: white;
-}
-
-input[type="checkbox"] {
+input {
+    border: none;
+    height: 20px;
     margin: 0;
-    position: relative;
+    font-size: 16px;
+}
+
+select, option {
+    height: 22px;
+    font-size: 16px;
     border: none;
 }
 
-input[type="checkbox"]:checked {
-    background-color: #7B68EE;
-    color: white;
-}
-
-td {
-    background-color: white;
-    border-left: 1px solid #DCDCDC;
-    border-bottom: 1px solid #DCDCDC;
-    border-right: 1px solid #DCDCDC;;
-    padding: 2px;
-}
-
-td input {
-    border: none;
-    background-color: transparent;
+ul {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 fieldset {
-    border: 2px solid #424769;
-    margin-bottom: 10px;
+    padding: 10px;
+    gap: 5px;
+    padding-top: 5px;
 }
 
-legend {
-    color: #424769;
-    font-weight: 600;
+.fieldset-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.button {
-    display: block;
-    font-size: 16px;
-    width: 160px;
-    height: 30px;
-    margin: 2px;
-    background-color: #f9b17a;
-    color: white;
-    font-weight: 600;
+.fieldset-content div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+table input {
+    width: 95%;
     border: none;
-    padding: 3px;
-}
-
-section {
-    width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-}
-
-section p {
-    margin: 0;
-    padding: 0 5px 10px 0;
-}
-
-section .content {
-    padding: 10px;
-    background-color: aliceblue;
-    border-left: 1px solid #DCDCDC;
-    border-right: 1px solid #DCDCDC;
-    border-bottom: 1px solid #DCDCDC;
-}
-
-section h3, nav h3 {
-    background-color: #424769;
-    color: white;
-    margin: 0;
-    padding: 10px;
-}
-
-.extremal h3{
-    background-color: #800000;
-}
-
-.very-high-risk h3 {
-    background-color: #DC143C;
-}
-
-.high-risk h3 {
-    background-color: #FF8C00;
-}
-
-.medium-risk h3 {
-    background-color: #FFD700;
-}
-
-.low-risk h3 {
-    background-color: #9ACD32;
-}
-
-.hidden {
-    display: none;
-}
-
-.checkbox {
-	vertical-align: top;
-	width: 17px;
-	height: 17px;
-	margin: 0 3px 0 0;
-    background-color: #7B68EE;
-    cursor: pointer;
-}
-
-.totaltherapy {
-    border: 2px solid forestgreen;
-}
-
-.totaltherapy legend {
-    color: forestgreen;
-}
-
-.result fieldset p {
-    padding: 0;
-}
-
-.result ul {
-    margin: 0;
-}
-
-.result th, td {
-    width: 178px;
-    height: 23,5px;
     text-align: center;
 }
 
-.result .goal {
-    color: green;
+table tr td {
+    width: 25%;
+    padding: 2px;
+    text-align: center;
+}
+
+table tr {
+    background-color: #3D4D55;
+    color: white;
+    border: solid #3D4D55 2px;
+    border-bottom: none;
+}
+
+table td {
+    border: solid grey 2px;
+    border-top: none;
+    background-color: white;
+
+}
+
+.button {
+    background-color: #B58863;
+    color: white;
+    font-weight: bold;
+    height: 40px;
+    width: 200px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+legend {
+    color: #3D4D55;
     font-weight: bold;
 }
 
+fieldset {
+    border: solid 2px #3D4D55;
+}
+
+.checkbox {
+    width: 15px;
+    height: 15px;
+}
+
+input[type="radio"] {
+    width: 15px;
+    height: 15px;
+    margin-bottom: 3px;
+}
+
+.checkbox-list div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .dlcn-header {
-    background-color: #424769;
+    background-color: #3D4D55;
     color: white;
     display: block;
     width: auto;
@@ -285,17 +344,110 @@ section h3, nav h3 {
     grid-template-columns: 85% 15%;
     align-items: center;
     align-content: center;
+    transition: ease 0.3s;
 }
 
-.dlcn-content #hdll {
-    width: 50px;
+.dlcn-content:hover {
+    filter: brightness(90%);
+    background-color: #DEDCDC;
+    transition: ease 0.3s;
 }
 
-@media (max-width: 1200px) {
-
+.dlcn-content div {
+    padding: 5px;
 }
 
-@media (max-width: 1160px) {
+.input-column {
+    display: flex;
+    align-items: center;
+    align-self: center;
+    gap: 10px;
+}
 
+.input-column label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
+.dlcn-content input[type="number"] {
+    width: 90px;
+}
+
+h3 {
+    margin: 0;
+}
+
+section {
+    margin-bottom: 15px;
+}
+
+.high-risk h3 {
+    background-color: orange;
+    color: white;
+    padding: 10px;
+}
+
+.very-high-risk h3 {
+    background-color: red;
+    color: white;
+    padding: 10px;
+}
+
+.low-risk h3 {
+    background-color: green;
+    color: white;
+    padding: 10px;
+}
+
+.medium-risk h3 {
+    background-color: #ffcd00;
+    color: white;
+    padding: 10px;
+}
+
+.extremal h3 {
+    background-color: maroon;
+    color: white;
+    padding: 10px;
+}
+
+.result td {
+    color: #3D4D55;
+}
+
+@media (max-width: 1460px) {
+    .top-navigation-bar {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .side-navigation {
+        display: none;
+    }
+
+    .cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1010px) {
+    .top-navigation-bar {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .side-navigation {
+        display: none;
+    }
+
+    .cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index {
+        width: 100%;
+    }
+
+    main {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }
