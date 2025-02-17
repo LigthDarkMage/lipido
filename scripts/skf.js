@@ -34,7 +34,7 @@ function retrieveFormValue (event) {
     event.preventDefault();
 
     //Манипуляция DOM-деревом
-    const calcSKF = document.querySelector('[id="calc-SKF"]');
+    const calcSKF = document.querySelector('[class="glomerular-filtration-rate"]');
           resultskf = document.createElement('section');
 
     //Объявление пустых переменных для дальнейшей работы с ними
@@ -155,32 +155,32 @@ function retrieveFormValue (event) {
             calcSKF.replaceChild(resultskf, calcSKF.children[1]);
             resultskf.id = 'result-skf';
             resultskf.classList.add('low-risk');
-            resultskf.innerHTML = "<h3>Низкий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
+            resultskf.innerHTML = "<h3>Низкий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
         } else if (skfrisk == 1) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('low-risk');
-                resultskf.innerHTML = "<h3>Низкий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
+                resultskf.innerHTML = "<h3>Низкий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
         } else if (skfrisk == 2) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('medium-risk');
-                resultskf.innerHTML = "<h3>Умеренный риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
+                resultskf.innerHTML = "<h3>Умеренный риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
         } else if (skfrisk == 3) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('high-risk');
-                resultskf.innerHTML = "<h3>Высокий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
+                resultskf.innerHTML = "<h3>Высокий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
         } else if (skfrisk == 4) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('very-high-risk');
-                resultskf.innerHTML = "<h3>Очень высокий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
+                resultskf.innerHTML = "<h3>Очень высокий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
         } else if (skfrisk == 5) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('very-high-risk');
-                resultskf.innerHTML = "<h3>Очень высокий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
+                resultskf.innerHTML = "<h3>Очень высокий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Результат без учета наличия альбумина в моче</p></div>";
         }
 
     } else if (albumins.value >= 0) {
@@ -188,22 +188,22 @@ function retrieveFormValue (event) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('low-risk');
-                resultskf.innerHTML = "<h3>Низкий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
+                resultskf.innerHTML = "<h3>Низкий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
         } else if (chkdresult == 1) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('medium-risk');
-                resultskf.innerHTML = "<h3>Умеренный риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
+                resultskf.innerHTML = "<h3>Умеренный риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
         } else if (chkdresult == 2) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('high-risk');
-                resultskf.innerHTML = "<h3>Высокий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
+                resultskf.innerHTML = "<h3>Высокий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
         } else if (chkdresult == 3) {
                 calcSKF.replaceChild(resultskf, calcSKF.children[1]);
                 resultskf.id = 'result-skf';
                 resultskf.classList.add('very-high-risk');
-                resultskf.innerHTML = "<h3>Очень высокий риск прогрессирования хронической болезни почек</h3><div class='content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
+                resultskf.innerHTML = "<h3>Очень высокий риск прогрессирования хронической болезни почек</h3><div class='article-content'><p>СКФ по SKD-EPI равен <b>"+ skf +" мл/мин/1,73м³</b></p><p>Категория СКФ: <b>"+ classskf +"</b></p><p>Альбуминурия составляет <b>"+ albumins.value +" "+ alba +"</b>, соответственно категория альбуминурии <b>"+ classalba +"</b></p></div>";
         }
     }
 }
