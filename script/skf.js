@@ -49,7 +49,7 @@ function retrieveFormValue (event) {
     //В случае, если креатинин указан в ммоль/л для перевода в мг/дл
 
     if (trans.value == 2) {
-        SCr = (kreatinin.value / 88.4).toFixed(1); 
+        SCr = kreatinin.value / 88.4; 
     }
 
     //Объявление переменных, зависящих от половой пренадлежности пациента
