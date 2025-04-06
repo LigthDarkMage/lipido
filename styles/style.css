@@ -8,6 +8,7 @@ body {
     scroll-behavior: smooth;
     font-weight: 600;
     font-size: 16px;
+    min-width: 900px;
 }
 
 header {
