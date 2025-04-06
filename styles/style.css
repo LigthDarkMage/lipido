@@ -110,6 +110,11 @@ main {
     height: auto;
 }
 
+.article-content a {
+    max-width: 100%;
+    width: auto;
+}
+
 /*Навигация по калькулятору*/
 
 .top-navigation-bar {
