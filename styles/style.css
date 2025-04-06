@@ -7,8 +7,6 @@ body {
     min-height: 100vh;
     scroll-behavior: smooth;
     font-weight: 600;
-    font-size: 16px;
-    min-width: 900px;
 }
 
 header {
@@ -54,6 +52,8 @@ header {
     gap: 8px;
     transition: ease 0.5s;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .header-right-part a:hover {
@@ -208,6 +208,14 @@ footer {
     display: flex;
     align-items: center;
     gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: ease 0.5s;
+}
+
+.footer-right-part a:hover {
+    color: #D3C3B9;
+    transition: ease 0.5s;
 }
 
 .footer-right-part a p {
@@ -217,8 +225,12 @@ footer {
 
 /*Калькулятор ССР*/
 
-.cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index {
+.cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index, .learn {
     width: 70%;
+}
+
+.info {
+    width: 100%;
 }
 
 .lipids-now {
@@ -228,7 +240,6 @@ footer {
 p {
     margin: 0;
     padding: 0;
-    font-size: 1rem;
 }
 
 table {
@@ -249,6 +260,11 @@ select, option {
     border: none;
 }
 
+.img-description {
+    color: grey;
+    text-align: center;
+}
+
 ul {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -258,6 +274,7 @@ fieldset {
     padding: 10px;
     gap: 5px;
     padding-top: 5px;
+    margin-bottom: 5px;
 }
 
 .fieldset-content {
@@ -381,6 +398,10 @@ h3 {
     margin: 0;
 }
 
+ol, ul {
+    margin: 0;
+}
+
 section {
     margin-bottom: 15px;
 }
@@ -389,6 +410,30 @@ section {
     background-color: orange;
     color: white;
     padding: 10px;
+}
+
+.red {
+    border-color: red;
+}
+
+.red legend {
+    color: red;
+}
+
+.green {
+    border-color: green;
+}
+
+.green legend {
+    color: green;
+}
+
+.yellow {
+    border-color: orange;
+}
+
+.yellow legend {
+    color: orange;
 }
 
 .very-high-risk h3 {
@@ -429,7 +474,7 @@ section {
         display: none;
     }
 
-    .cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index {
+    .cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index, .learn, .info {
         width: 100%;
     }
 }
@@ -444,7 +489,7 @@ section {
         display: none;
     }
 
-    .cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index {
+    .cardio-vascular-risk, .glomerular-filtration-rate, .dutch-lipid-clinic-network, .body-mass-index, .learn, .info {
         width: 100%;
     }
 
