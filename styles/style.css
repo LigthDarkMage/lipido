@@ -102,7 +102,6 @@ main {
     flex-direction: column;
     gap: 10px;
     overflow: hidden;
-    width: 100%;
 }
 
 .article-content img {
