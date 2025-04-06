@@ -104,18 +104,6 @@ main {
     overflow: hidden;
 }
 
-.article-content img {
-    max-width: 100%;
-    width: auto;
-    height: auto;
-}
-
-.article-content a {
-    max-width: 100%;
-    width: auto;
-    text-wrap: break-word;
-}
-
 /*Навигация по калькулятору*/
 
 .top-navigation-bar {
