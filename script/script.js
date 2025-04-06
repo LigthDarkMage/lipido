@@ -751,7 +751,7 @@ function retrieveFormValue (event) {
             risktherapy = 2;
         } else if (resultScore >= 10 && globalScore == "Очень высокий сердечно-сосудистый риск") {
             risktherapy = 3;
-        } else if (globalScore =="Экстремальный сердечно-сосудистый риск") {
+        } else if (globalScore == "Экстремальный сердечно-сосудистый риск") {
             risktherapy = 4;
         }
 
@@ -783,7 +783,7 @@ function retrieveFormValue (event) {
             divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset>";
         } else if (totaltherapy == 1) {
             result.children[1].appendChild(divblock);
-            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset><b>При неэффективности показана лекарственная терапия</b>";
+            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset><b>При неэффективности показана лекарственная терапия</b><p>Перед назначением гиполипидемической терапии рекомендуется лабораторный контроль показателей <em>АЛТ и АСТ</em> а затем однократно через 8-12 нед. от начала терапии. Если показатели превышают норму в 3 раза необходимо отменить гиполипидемическую терапию, а затем возобновить ее после нормализации этих показателей.</p>";
             if (globalScore == "Очень высокий сердечно-сосудистый риск" && hll.value >= 5 || globalScore =="Экстремальный сердечно-сосудистый риск" && hll.value >= 5) {
                 result.children[1].appendChild(medicine);
                 medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии:</b></p><ul><li>Статинами максимально переносимой дозе + эзетимиб + ингибиторы PCSK9: Алирокумаб или Инклисиран</li></ul></fieldset>";
@@ -796,43 +796,43 @@ function retrieveFormValue (event) {
                     medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером + Эзетимиб 10 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг x 1 раз в день вечером + Эзетимиб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 30 && differenceLowLipids < 36) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 36 && differenceLowLipids < 41) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 41 && differenceLowLipids < 45) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 45 && differenceLowLipids < 47) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 30 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 30 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 47 && differenceLowLipids < 49) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 49 && differenceLowLipids < 51) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 15 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 15 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 51 && differenceLowLipids < 53) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 53 && differenceLowLipids < 56) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Аторвастатин 80 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 80 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 56 && differenceLowLipids < 58) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 58 && differenceLowLipids < 61) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 10 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 10 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 61 && differenceLowLipids < 66) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 20 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 20 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 66 && differenceLowLipids < 71) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 40 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 40 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 71 && differenceLowLipids < 85) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 85) {
                     result.children[1].appendChild(medicine);
                     medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная комбинированная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран 284 мг однократно, затем через 3 месяца, затем 1 раз в 6 месяцев</li></ul></fieldset>";
@@ -840,7 +840,7 @@ function retrieveFormValue (event) {
             }
         } else if (totaltherapy == 2) {
             result.children[1].appendChild(divblock);
-            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset><b>А также показана лекарственная терапия</b>";
+            divblock.innerHTML = "<fieldset class='totaltherapy'><legend>Тактика ведения пациента</legend><p><b>Рекомендовано для пациента модификация образа жизни, которая в себя включает:</b></p><ul><li>Соблюдение диеты с исключением жирной и жареной пищи, а также легкоусвояемых углеводов</li><li>Соблюдение физической активности</li><li>Исключение курения и употребления алкоголя</li><li>Контроль за артериальным давлением</li><li>Контроль за массой тела</li></ul><p>Затем посещение терапевта на повторный прием через 2-3 недели.</p></fieldset><b>А также показана лекарственная терапия</b><p>Перед назначением гиполипидемической терапии рекомендуется лабораторный контроль показателей <em>АЛТ и АСТ</em> а затем однократно через 8-12 нед. от начала терапии. Если показатели превышают норму в 3 раза необходимо отменить гиполипидемическую терапию, а затем возобновить ее после нормализации этих показателей.</p>";
             if (globalScore == "Очень высокий сердечно-сосудистый риск" && hll.value >= 5 || globalScore =="Экстремальный сердечно-сосудистый риск" && hll.value >= 5) {
                 result.children[1].appendChild(medicine);
                 medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии:</b></p><ul><li>Статинами максимально переносимой дозе + эзетимиб + ингибиторы PCSK9: Алирокумаб или Инклисиран</li></ul></fieldset>";
@@ -853,43 +853,43 @@ function retrieveFormValue (event) {
                     medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером + Эзетимиб 10 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг x 1 раз в день вечером + Эзетимиб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 30 && differenceLowLipids < 36) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 36 && differenceLowLipids < 41) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 41 && differenceLowLipids < 45) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 45 && differenceLowLipids < 47) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 30 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 30 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 47 && differenceLowLipids < 49) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 49 && differenceLowLipids < 51) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 15 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 15 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 51 && differenceLowLipids < 53) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 53 && differenceLowLipids < 56) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Аторвастатин 80 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 80 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 56 && differenceLowLipids < 58) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Розувастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 58 && differenceLowLipids < 61) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 10 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 10 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 61 && differenceLowLipids < 66) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 20 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 20 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 66 && differenceLowLipids < 71) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 40 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 40 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 71 && differenceLowLipids < 85) {
                     result.children[1].appendChild(medicine);
-                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран</li></ul></fieldset>";
+                    medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран</li></ul></fieldset>";
                 } else if (differenceLowLipids >= 85) {
                     result.children[1].appendChild(medicine);
                     medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная комбинированная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран 284 мг однократно, затем через 3 месяца, затем 1 раз в 6 месяцев</li></ul></fieldset>";
@@ -901,88 +901,7 @@ function retrieveFormValue (event) {
             document.querySelector('[id="dif"]').textContent = "Целевой показатель ХС-ЛНП достигнут!";
             document.querySelector('[id="dif"]').classList.add('goal');
         }
-
-        //Отборная терапия для пациентов "Очень высокого и экстремального риска с высоким уровнем ЛПНП"
-
-        
-
-
-        //Выбор гиполипидемической терапии
-        /*
-            if (differenceLowLipids >= 15 && differenceLowLipids < 25) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 25 && differenceLowLipids < 30) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано рассмотреть возможность назначения инициальной терапии статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером + Эзетимиб 10 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг x 1 раз в день вечером + Эзетимиб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 30 && differenceLowLipids < 36) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 10 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 36 && differenceLowLipids < 41) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 5 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 41 && differenceLowLipids < 45) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 45 && differenceLowLipids < 47) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 30 мг x 1 раз в день вечером</li><p>ИЛИ</p><li>Розувастатин 10 мг 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 47 && differenceLowLipids < 49) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Аторвастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 49 && differenceLowLipids < 51) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано умеренная терапия статинами:</b></p><ul><li>Розувастатин 15 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 51 && differenceLowLipids < 53) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 20 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 53 && differenceLowLipids < 56) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Аторвастатин 80 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 56 && differenceLowLipids < 58) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия статинами:</b></p><ul><li>Розувастатин 40 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 58 && differenceLowLipids < 61) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 10 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 61 && differenceLowLipids < 66) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 20 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 66 && differenceLowLipids < 71) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано терапия статинами с добавлением эзетимиба:</b></p><ul><li>Розувастатин 40 мг + Эзетиниб 10 мг x 1 раз в день вечером</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 71 && differenceLowLipids < 85) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран</li></ul></fieldset>";
-            } else if (differenceLowLipids >= 85) {
-                result.children[1].appendChild(medicine);
-                medicine.innerHTML = "<fieldset id='medical'><legend>Лекарственная терапия</legend><p><b>Рекомендовано интенсивная комбинированная терапия:</b></p><ul><li>Алирокумаб 75 мг подкожно 1 раз в 2 недели  или 300 мг 1 раз каждые 4 нед</li><li>Эволокумаб 140 мг 1 раз в 2 недели или 420 мг 1 раз в месяц</li><li>Розувастатин 40 + Эзетиниб 10 + Инклисиран 284 мг однократно, затем через 3 месяца, затем 1 раз в 6 месяцев</li></ul></fieldset>";
-            }
-        */
-        //Подбор терапии для пациентов с ХБП
-        /*
-        if (isold.value >= 50 && skf.value >= 60) {
-
-        } else if (isold.value >= 50 && skf.value < 60 && skf.value >= 15) {
-            if (hll.value > goalLipids[1] && tg.value <= 1.7) {
-                
-            } else if (hll.value > goalLipids[1] && tg.value > 1.7) {
-
-            } else if (hll.value <= goalLipids[1] && tg.value > 1.7) {
-
-            }
-        } else if (isold.value >= 50 && skf.value < 15) {
-            if (hll.value > goalLipids[1] && tg.value <= 1.7) {
-
-            } else if (hll.value > goalLipids[1] && tg.value > 1.7) {
-
-            } else if (hll.value <= goalLipids[1] && tg.value > 1.7) {
-
-            }
-        } else if (isold.value < 50 && kidneyDisease.checked == true) {
-
-        }
-        */
+    
         //Тактика назначения фенофибрата
 
         //Если уровень ЛПНП выше целевых уровней и назначена или возможно назначение глобальной гиполипидемической терапии
