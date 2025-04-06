@@ -113,6 +113,7 @@ main {
 .article-content a {
     max-width: 100%;
     width: auto;
+    text-wrap: break-word;
 }
 
 /*Навигация по калькулятору*/
