@@ -13,15 +13,18 @@ const isfemale = form.querySelector('[name="sex"]');
 function retrieveFormValue (event) {
     event.preventDefault();
 
+    //Объявление переменных для рассчета ИМТ
     var calcbmi = document.querySelector('[class="body-mass-index"]');
     var resultbmi = document.createElement('section');
     var realheight = bodyheight.value/100;
     var bmi;
 
+    //Рассчет ИМТ
     console.log(abdominalsize.value);
     bmi = bodyweight.value/Math.pow(realheight, 2);
     bmi = bmi.toFixed(2);
 
+    //Определение риска ИМТ на развитие атеросклероза и сердечно-сосудистых осложнений
     if (abdominalsize.value == "") {
         if (race.checked == true && bmi >= 40 || race.checked == false && bmi >= 37.5) {
             console.log("1");
